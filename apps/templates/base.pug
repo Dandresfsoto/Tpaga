@@ -1,0 +1,44 @@
+- load static
+
+doctype html
+<!--[if IE 8]> <html lang="es" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es">
+<!--<![endif]-->
+
+head
+    meta(charset="utf-8")
+    title
+        block title
+    meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",name="viewport")
+    meta(content="", name="description")
+    meta(content="", name="author")
+
+    // ================== BEGIN BASE CSS STYLE ==================
+
+    link(href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900", rel="stylesheet")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+    link(rel="stylesheet", href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css")
+    link(rel="stylesheet", href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.bootstrap4.min.css")
+    link(rel="stylesheet", href="{% static 'assets/css/google/app.min.css'%}")
+    link(rel="stylesheet", href="{% static 'assets/css/bootstrap-social.css'%}")
+
+    // ================== END BASE CSS STYLE ==================
+
+    block head_content
+
+
+block body_content
+
+// ================== BEGIN BASE JS ==================
+script(src="{% static 'assets/js/app.min.js'%}")
+script(src="{% static 'assets/js/theme/google.min.js'%}")
+script(src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js")
+script(src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js")
+script(src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js")
+script(src="https://cdn.datatables.net/responsive/2.2.2/js/responsive.bootstrap4.min.js")
+
+//================== END BASE JS ==================
+
+block body_script
+</html>

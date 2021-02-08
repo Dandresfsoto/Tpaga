@@ -1,0 +1,135 @@
+extends base
+
+- load static
+
+block body_content
+
+    body
+
+        //-- begin #page-loader --
+        div(id="page-loader", class="fade show")
+            div(class="material-loader")
+                svg(class="circular",viewBox="25 25 50 50")
+                    circle(class="path",cx="50",cy="50",r="20",fill="none",stroke-width="2",stroke-miterlimit="10")
+        //-- end #page-loader --
+        div(id="page-container",class="page-container fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar page-with-light-sidebar")
+            div(id="header",class="header navbar-default")
+                div(class="navbar-header")
+                    button(type="button",class="navbar-toggle collapsed navbar-toggle-left",data-click="sidebar-minify")
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+
+                    a(href="#", class="navbar-brand")
+                        div
+                            img(src="{% static 'assets/img/logo.svg'%}", style="height:40px;")
+
+                    button(type="button",class="navbar-toggle",data-click="sidebar-toggled")
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+                        span(class="icon-bar")
+
+                ul(class="navbar-nav d-flex flex-grow-1")
+
+                    li(class="navbar-form flex-grow-1")
+
+
+                    li(class="dropdown")
+                        a(href="#",data-toggle="dropdown",class="dropdown-toggle")
+                            i(class="fa fa-bell")
+                            span(class="label label-primary") 0
+                        div(class="dropdown-menu media-list dropdown-menu-right")
+                            div(class="dropdown-header") Notificaciones (0)
+                            div(class="text-center width-300 p-b-10 p-t-10") No hay notificaciones
+
+
+                    li(class="dropdown navbar-user")
+                        a(href="#",class="dropdown-toggle",data-toggle="dropdown")
+
+                            |{% if user.url_photo == None %}
+                            img(src="{% static 'assets/css/google/images/user.png'%}")
+                            |{% else %}
+                            img(src="{{ user.url_photo }}")
+                            |{% endif %}
+
+
+                            span(class="d-none d-md-inline") {{ user.first_name }}
+                            b(class="caret ml-1")
+
+                        div(class="dropdown-menu dropdown-menu-right")
+                            a(href="{% url 'logout' %}",class="dropdown-item") Cerrar sesión
+
+
+
+            div(id="sidebar",class="sidebar")
+                div(data-scrollbar="true",data-height="100%")
+                    ul(class="nav")
+
+                        li(class="nav-profile")
+                            a(href="#",data-toggle="nav-profile")
+                                div(class="cover with-shadow")
+                                div(class="image image-icon")
+                                    | {% if user.url_photo == None %}
+                                    img(src="{% static 'assets/css/google/images/user.png'%}")
+                                    | {% else %}
+                                    img(src="{{ user.url_photo }}")
+                                    | {% endif %}
+                                div(class="info")
+                                    b(class="caret pull-right")
+                                    | {{ user.first_name }}
+                                    small Username: {{ user.username }}
+
+                        li
+                            ul(class="nav nav-profile")
+                                li
+                                    a(href="{% url 'logout' %}")
+                                        i(class="fas fa-sign-out-alt")
+                                        | Cerrar sesión
+                    ul(class="nav")
+                        li(class="nav-header") Navegación
+
+                        |{% for app in apps_permissions %}
+
+                        li(class="{% if app.menu|length > 0 %}has-sub{% endif %} {{ app.status }}")
+                            a(href="{% if app.menu|length > 0 %} # {% else %} {{ app.url }} {% endif %}")
+                                |{% if app.menu|length > 0 %}
+                                b(class="caret")
+                                |{% endif %}
+                                i(class="material-icons") {{ app.icon }}
+                                span {{ app.index_name }}
+
+                            | {% if app.menu|length > 0 %}
+
+                            ul(class="sub-menu")
+                                |{% for item in app.menu %}
+                                li(class="{% if item.submenu|length > 0 %}has-sub{% endif %} {{ item.status }} {{ item.class }}")
+                                    a(href="{% if item.submenu|length > 0 %} # {% else %} {{ item.url }} {% endif %}")
+                                        | {% if item.submenu|length > 0 %}
+                                        b(class="caret")
+                                        | {% endif %}
+                                        span {{ item.name }}
+                                    |{% if item.submenu|length > 0 %}
+                                    ul(class="sub-menu")
+                                        | {% for subitem in item.submenu %}
+                                        li(class="{{ subitem.status }}")
+                                            a(href="{{ subitem.url }}")
+                                                span {{ subitem.name }}
+                                        | {% endfor %}
+                                    |{% endif %}
+                                |{% endfor %}
+                            | {% endif %}
+                        |{% endfor %}
+
+
+            div(class="sidebar-bg")
+
+            div(id="content",class="content")
+                block content_auth
+
+
+
+            a(href="#",class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade",data-click="scroll-top")
+                i(class="material-icons") keyboard_arrow_up
+
+block body_script
+    block auth_script

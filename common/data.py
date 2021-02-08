@@ -1,0 +1,8 @@
+TERMINAL_ID = "DANDRESFSOTO"
+PURCHASE_DESCRIPTION = "Compra en Tienda Dandresfsoto"
+CREATED_STATUS = "created"
+PAID_STATUS = "paid"
+FAILED_STATUS = "failed"
+EXPIRED_STATUS = "expired"
+DELIVERED_STATUS = "delivered"
+REVERTED_STATUS = "reverted"

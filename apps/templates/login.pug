@@ -1,0 +1,26 @@
+extends base.pug
+
+- load static
+- load crispy_forms_tags
+
+block title
+    |Iniciar sesión
+
+
+block body_content
+    body(class="pace-top")
+        div(id="page-loader",class="fade show")
+            span(class="spinner")
+
+        div(id="page-container",class="fade")
+            div(class="login login-v1")
+                div(class="login-container")
+                    div(class="login-header")
+                        img(src="{% static 'assets/img/logo.svg'%}", class="mx-auto d-block")
+                    div(class="login-body")
+                        div(class="login-content")
+                            form(class="margin-bottom-0",method="POST")
+                                | {% crispy form %}
+
+
+block body_script

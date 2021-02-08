@@ -1,0 +1,65 @@
+extends generic_auth
+
+- load static
+
+block content_generic_auth
+    div(class="invoice")
+        div(class="invoice-company")
+            img(src="{% static 'assets/img/logo.svg'%}", style="height:40px;")
+        div(class="invoice-header")
+            div(class="invoice-from")
+                small De:
+                address(class="m-t-5 m-b-5")
+                strong(class="text-inverse") Tienda Dandresfsoto
+                br
+                | Street Address
+                br
+                | City, Zip Code
+                br
+                | Phone: (123) 456-7890
+                br
+                | Fax: (123) 456-7890
+
+            div(class="invoice-to")
+                small Para:
+                address(class="m-t-5 m-b-5")
+                strong(class="text-inverse") Tienda Dandresfsoto
+                br
+                | Street Address
+                br
+                | City, Zip Code
+                br
+                | Phone: (123) 456-7890
+                br
+                | Fax: (123) 456-7890
+
+            div(class="invoice-date")
+                small Factura
+                strong(class="date text-inverse m-t-5") {{order.created_at}}
+                div(class="invoice-detail")
+                    | Hash: {{order.id}}
+
+        div(class="invoice-content")
+            div(class="table-responsive")
+                table(class="table table-invoice")
+                    thead
+                        tr
+                            th Plato
+                            th(class="text-center", width="10%") Cantidad
+                            th(class="text-center", width="10%") Valor unitario
+                            th(class="text-center", width="20%") Total
+                    tbody
+                        tr
+                            td {{order.dish.name}}
+                            td(class="text-center", width="10%") {{order.count}}
+                            td(class="text-center", width="10%") {{order.dish.get_pretty_amount}}
+                            td(class="text-center", width="20%") {{order.get_pretty_cost}}
+            div(class="invoice-price")
+                div(class="invoice-price-left")
+                    div(class="invoice-price-row")
+                        h5 Estado de la orden: {{order.status}}
+                div(class="invoice-price-right")
+                    small TOTAL
+                    span(class="f-w-600") {{order.get_pretty_cost}}
+
+block generic_auth_script

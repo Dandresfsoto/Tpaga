@@ -1,0 +1,35 @@
+extends generic_auth
+
+- load static
+
+block content_generic_auth
+    div(class="container-fluid")
+        div(class="row")
+            |{% for dish in dishes %}
+            div(class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-10")
+                div(class="card border-0")
+                    img(class="card-img-top", src="{{ dish.get_image_url }}")
+                    div(class="card-body")
+                        h4(class="card-title m-t-0 m-b-10") {{ dish.name }}
+                        p(class="card-text") {{ dish.description }}
+                        label(for="select_{{dish.id}}") Cantidad:
+                        select(class="form-control m-b-20 count", id="select_{{dish.id}}", name="select_{{dish.id}}")
+                            option 1
+                            option 2
+                            option 3
+                            option 4
+                            option 5
+                        a(href="{% url 'new-order' dish.id %}", class="btn btn-sm btn-primary dish", id="link_{{dish.id}}") Comprar
+            |{% endfor %}
+
+block generic_auth_script
+    script.
+        $(document).ready(function () {
+            $(".dish").click(function (event){
+                event.preventDefault();
+                var id = event.target.id.split("_")[1]
+                var count = $(`#select_${id}`).val()
+                var href = `${event.target.href}?count=${count}`
+                window.location.href = href;
+            });
+        });

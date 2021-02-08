@@ -1,0 +1,25 @@
+extends auth
+
+- load static
+
+block title
+    |{{ title }}
+
+block content_auth
+    ol(class="breadcrumb pull-right")
+        | {% for breadcrumb in breadcrumbs %}
+        li(class="breadcrumb-item {{breadcrumb.status}}") {% if breadcrumb.status == 'active' %} {{breadcrumb.name}} {% endif %}
+            | {% if breadcrumb.status == '' %}
+            a(href="{{breadcrumb.url}}") {{breadcrumb.name}}
+            | {% endif %}
+        | {% endfor %}
+
+    h1(class="page-header") {{ title }}
+        small
+            |
+            | {{ subtitle }}
+
+    block content_generic_auth
+
+block auth_script
+    block generic_auth_script
