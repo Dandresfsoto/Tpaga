@@ -19,6 +19,8 @@ block content_generic_auth
                             option 3
                             option 4
                             option 5
+                        p
+                            strong {{dish.get_pretty_amount}}
                         a(href="{% url 'new-order' dish.id %}", class="btn btn-sm btn-primary dish", id="link_{{dish.id}}") Comprar
             |{% endfor %}
 
